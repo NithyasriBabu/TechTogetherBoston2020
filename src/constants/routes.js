@@ -7,4 +7,6 @@ export const PASSWORD_FORGET = "/pw-forget";
 export const ADMIN = "/admin";
 export const ADMIN_DETAILS = "/admin/:id";
 export const POST_CHALLENGE = "/post-challenge";
-export const PROJECTS = "projects";
+export const PROJECTS = "/projects";
+export const PROJECT = "/project";
+export const CHALLENGE = "/challenge";
