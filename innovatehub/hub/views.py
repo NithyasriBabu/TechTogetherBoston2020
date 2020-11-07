@@ -1,26 +1,34 @@
 from django.shortcuts import render
 
-from hub.models import Challenge
+from hub.models import Challenge, ChallengeCategory
 from django.http import JsonResponse
 
 from django.views.decorators.http import require_http_methods
 
-@require_http_methods(["POST"])
-def likeChallenge(request):
-    challengeID = request.POST.get('id')
+class ChallengeEndpoints:
 
-    challenge = Challenge.objects.get(pk=challengeID)
-    challenge.likes += 1
-    challenge.save()
+    @require_http_methods(["POST"])
+    def likeChallenge(self, request):
+        challengeID = request.POST.get('id')
 
-    return JsonResponse({'likes': challenge.likes})
+        challenge = Challenge.objects.get(pk=challengeID)
+        challenge.likes += 1
+        challenge.save()
 
-@require_http_methods(["POST"])
-def dislikeChallenge(request):
-    challengeID = request.POST.get('id')    
+        return JsonResponse({'likes': challenge.likes})
 
-    challenge = Challenge.objects.get(pk=challengeID)
-    challenge.dislikes += 1
-    challenge.save()
+    @require_http_methods(["POST"])
+    def dislikeChallenge(self, request):
+        challengeID = request.POST.get('id')    
 
-    return JsonResponse({'dislikes': challenge.dislikes})
+        challenge = Challenge.objects.get(pk=challengeID)
+        challenge.dislikes += 1
+        challenge.save()
+
+        return JsonResponse({'dislikes': challenge.dislikes})
+
+    @require_http_methods(["POST"])
+    def getAllCategories(self):
+        categories = list(ChallengeCategory.objects.values('category').distinct())
+        print(categories)
+        return JsonResponse({'categories': categories})
