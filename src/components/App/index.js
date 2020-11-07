@@ -5,6 +5,8 @@ import Navigation from "../Navigation";
 import LandingPage from "../Landing";
 import SignUpPage from "../SignUp";
 import SignInPage from "../SignIn";
+import PostChallenge from "../PostChallenge";
+import Projects from "../Projects";
 import PasswordForgetPage from "../PasswordForget";
 import HomePage from "../Home";
 import AccountPage from "../Account";
@@ -21,9 +23,12 @@ const App = () => (
       <Route path={ROUTES.SIGN_UP} component={SignUpPage} />
       <Route path={ROUTES.SIGN_IN} component={SignInPage} />
       <Route path={ROUTES.PASSWORD_FORGET} component={PasswordForgetPage} />
+      <Route path={ROUTES.PROJECTS} component={Projects} />
+      <Route path={ROUTES.POST_CHALLENGE} component={PostChallenge} />
       <Route path={ROUTES.HOME} component={HomePage} />
       <Route path={ROUTES.ACCOUNT} component={AccountPage} />
       <Route path={ROUTES.ADMIN} component={AdminPage} />
+
     </div>
   </Router>
 );
