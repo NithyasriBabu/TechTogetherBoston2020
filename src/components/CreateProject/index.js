@@ -3,7 +3,8 @@ import { compose } from "recompose";
 
 import { withAuthorization, withEmailVerification } from "../Session";
 
-import { Container, Button, Form } from "react-bootstrap";
+import { Container, Button, ButtonGroup, Form } from "react-bootstrap";
+
 const CreateProject = () => (
     <Container>
         <Container>

@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter, Link, Route, Switch, Router } from "react-router-dom";
 
 import Navigation from "../Navigation";
 import LandingPage from "../Landing";
@@ -16,22 +16,26 @@ import ChallengePage from "../Challenge";
 import * as ROUTES from "../../constants/routes";
 import { withAuthentication } from "../Session";
 
-const App = () => (
-  <Router>
-    <div>
+import './App.css';
+
+const App = () => {
+  return (
+    <BrowserRouter>
       <Navigation />
-      <Route exact path={ROUTES.LANDING} component={LandingPage} />
-      <Route path={ROUTES.SIGN_UP} component={SignUpPage} />
-      <Route path={ROUTES.SIGN_IN} component={SignInPage} />
-      <Route path={ROUTES.PASSWORD_FORGET} component={PasswordForgetPage} />
-      <Route path={ROUTES.PROJECTS} component={Projects} />
-      <Route path={ROUTES.POST_CHALLENGE} component={PostChallenge} />
-      <Route path={ROUTES.HOME} component={HomePage} />
-      <Route path={ROUTES.ACCOUNT} component={AccountPage} />
-      <Route path={ROUTES.ADMIN} component={AdminPage} />
-      <Route path={ROUTES.CHALLENGE} component={ChallengePage} />
-    </div>
-  </Router>
-);
+      <Switch>
+        <Route exact path={ROUTES.LANDING} component={LandingPage} />
+        <Route path={ROUTES.SIGN_UP} component={SignUpPage} />
+        <Route path={ROUTES.SIGN_IN} component={SignInPage} />
+        <Route path={ROUTES.PASSWORD_FORGET} component={PasswordForgetPage} />
+        <Route path={ROUTES.PROJECTS} component={Projects} />
+        <Route path={ROUTES.POST_CHALLENGE} component={PostChallenge} />
+        <Route path={ROUTES.HOME} component={HomePage} />
+        <Route path={ROUTES.ACCOUNT} component={AccountPage} />
+        <Route path={ROUTES.ADMIN} component={AdminPage} />
+        <Route path={ROUTES.CHALLENGE} component={ChallengePage} />
+      </Switch>
+    </BrowserRouter>
+  );
+}
 
 export default withAuthentication(App);
