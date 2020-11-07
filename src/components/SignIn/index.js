@@ -8,13 +8,32 @@ import { withFirebase } from "../Firebase";
 import * as ROUTES from "../../constants/routes";
 import { Form, Button, Container, Card } from "react-bootstrap";
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faGoogle, faFacebook, faTwitter } from '@fortawesome/free-brands-svg-icons'
+
+const centerStyle = {
+  display: 'flex',
+  justifyContent: 'center'
+}
+
+const mediaButtonStyle = {
+  borderRadius: 100
+}
+
+const flexRow = {
+  flexDirection: 'row'
+}
+
+const flexColumn = {
+  flexDirection: 'column'
+}
+
 const SignInPage = () => (
-  <Container style={{ display: "flex", justifyContent: "center" }}>
+  <Container style={centerStyle}>
     <Card style={{ padding: "50px", marginTop: "50px", width: "60%" }}>
-      <h1 style={{ textAlign: "center" }}>SignIn</h1>
+      <h1 style={{ textAlign: "center" }}>Sign In</h1>
       <SignInForm />
-      <br />
-      <div style={{ display: "flex", justifyContent: "center" }}>
+      <div style={Object.assign({marginTop: '30px'}, centerStyle, flexRow)}>
         <SignInGoogle />
         <SignInFacebook />
         <SignInTwitter />
@@ -76,7 +95,7 @@ class SignInFormBase extends Component {
 
     return (
       <Container>
-        <Form onSubmit={this.onSubmit}>
+        <Form style={Object.assign({}, centerStyle, flexColumn)} onSubmit={this.onSubmit}>
           {error && <h2 color="danger">{error.message}</h2>}
           <Form.Group controlId="formBasicEmail">
             <Form.Label>Email address</Form.Label>
@@ -99,9 +118,7 @@ class SignInFormBase extends Component {
               placeholder="Password"
             />
           </Form.Group>
-          <Button disabled={isInvalid} variant="primary" type="submit">
-            Submit
-          </Button>
+            <Button disabled={isInvalid} variant="primary" type="submit">Submit</Button>
         </Form>
       </Container>
     );
@@ -146,10 +163,12 @@ class SignInGoogleBase extends Component {
 
     return (
       <Container>
-        <Form onSubmit={this.onSubmit}>
+        <Form style={centerStyle} onSubmit={this.onSubmit}>
           {error && <h2 color="danger">{error.message}</h2>}
-          <Button variant="danger" type="submit">
-            Sign In with Google
+          <Button style={{borderRadius: 100}} variant="danger" type="submit">
+            <div>
+            <FontAwesomeIcon icon={faGoogle} inverse />
+            </div>
           </Button>
         </Form>
       </Container>
@@ -195,10 +214,10 @@ class SignInFacebookBase extends Component {
 
     return (
       <Container>
-        <Form onSubmit={this.onSubmit}>
+        <Form style={centerStyle} onSubmit={this.onSubmit}>
           {error && <h2 color="danger">{error.message}</h2>}
-          <Button variant="primary" type="submit">
-            Sign In with Facebook
+          <Button style={{borderRadius: 100}} variant="primary" type="submit">
+            <FontAwesomeIcon icon={faFacebook} inverse />
           </Button>
         </Form>
       </Container>
@@ -244,10 +263,10 @@ class SignInTwitterBase extends Component {
 
     return (
       <Container>
-        <Form onSubmit={this.onSubmit}>
+        <Form style={centerStyle} onSubmit={this.onSubmit}>
           {error && <h2 color="danger">{error.message}</h2>}
-          <Button variant="primary" type="submit">
-            Sign In with Twitter
+          <Button style={{borderRadius: 100}} variant="primary" type="submit">
+          <FontAwesomeIcon icon={faTwitter} inverse />
           </Button>
         </Form>
       </Container>
