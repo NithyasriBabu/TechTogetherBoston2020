@@ -7,6 +7,7 @@ import {
   Form,
   FormControl,
   Button,
+  Image,
 } from "react-bootstrap";
 import { AuthUserContext } from "../Session";
 import SignOutButton from "../SignOut";
@@ -30,24 +31,31 @@ const Navigation = () => (
 
 const NavigationAuth = ({ authUser }) => (
   <Navbar bg="light" expand="lg">
-    <Navbar.Brand Link="#home">DuoCode</Navbar.Brand>
+    <Navbar.Brand href={ROUTES.HOME}>
+      <img
+        src="https://cdn.discordapp.com/attachments/774033076812120077/774490722794995743/logo11_7_42634.png"
+        width="60"
+        height="60"
+        className="d-inline-block align-top"
+        alt="React Bootstrap logo"
+      />
+    </Navbar.Brand>
     <Navbar.Toggle aria-controls="basic-navbar-nav" />
     <Navbar.Collapse id="basic-navbar-nav">
       <Nav className="mr-auto">
-        <Nav.Link href={ROUTES.LANDING}>Landing</Nav.Link>
-        <Nav.Link href={ROUTES.HOME}>Home</Nav.Link>
-        <Nav.Link href={ROUTES.ACCOUNT}>Account</Nav.Link>
-        {!!authUser.roles[ROLES.ADMIN] && (
-          <Nav.Link href={ROUTES.ADMIN}>Account</Nav.Link>
-        )}
+        <Nav.Link href={ROUTES.POST_CHALLENGE}>Post a Challenge</Nav.Link>
+        <Nav.Link href={ROUTES.PROJECTS}>Projects</Nav.Link>
       </Nav>
       <Form inline>
         <FormControl type="text" placeholder="Search" className="mr-sm-2" />
         <Button variant="outline-success">Search</Button>
       </Form>
-      <Nav.Link>
-        <SignOutButton />
-      </Nav.Link>
+      <NavDropdown title="Account" id="basic-nav-dropdown">
+        <NavDropdown.Item href={ROUTES.ADMIN}>Account</NavDropdown.Item>
+        <NavDropdown.Item>
+          <SignOutButton />
+        </NavDropdown.Item>
+      </NavDropdown>
     </Navbar.Collapse>
   </Navbar>
 );
