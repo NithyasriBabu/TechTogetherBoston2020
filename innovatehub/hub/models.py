@@ -8,10 +8,6 @@ class Skill(models.Model):
     skill = models.CharField(max_length=50)
     userprofile = models.ForeignKey('UserProfile',on_delete=models.CASCADE)
 
-class Language(models.Model):
-    userprofile = models.ForeignKey('UserProfile',on_delete=models.CASCADE)
-    language = models.CharField(max_length=50)
-
 class UserProfile(models.Model):
 
     privacy = models.BooleanField(default=False)
@@ -30,6 +26,8 @@ class UserProfile(models.Model):
     #location
     city = models.CharField(max_length=20)
     country = models.CharField(max_length=50)
+
+    language = models.CharField(max_length=50, null=True)
 
 class Challenge(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
