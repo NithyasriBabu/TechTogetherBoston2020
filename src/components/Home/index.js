@@ -1,8 +1,8 @@
 import React from "react";
 import { compose } from "recompose";
-
+import * as ROUTES from "../../constants/routes";
 import { withAuthorization, withEmailVerification } from "../Session";
-import Messages from "../Messages";
+
 import { Container, CardDeck, Card, Button } from "react-bootstrap";
 const HomePage = () => (
   <Container>
@@ -11,43 +11,49 @@ const HomePage = () => (
       <hr />
       <CardDeck>
         <Card>
-          <Card.Img
-            variant="top"
-            src="https://base.imgix.net/files/base/ebm/industryweek/image/2020/04/problem_solving.5e962254a8281.png?auto=format&fit=crop&h=432&w=768"
-          />
-          <Card.Body>
-            <Card.Text>
-              This is a wider card with supporting text below as a natural
-              lead-in to additional content. This content is a little bit
-              longer.
-            </Card.Text>
-          </Card.Body>
+          <Card.Link href={ROUTES.CHALLENGE}>
+            <Card.Img
+              variant="top"
+              src="https://base.imgix.net/files/base/ebm/industryweek/image/2020/04/problem_solving.5e962254a8281.png?auto=format&fit=crop&h=432&w=768"
+            />
+            <Card.Body>
+              <Card.Text>
+                This is a wider card with supporting text below as a natural
+                lead-in to additional content. This content is a little bit
+                longer.
+              </Card.Text>
+            </Card.Body>
+          </Card.Link>
         </Card>
         <Card>
-          <Card.Img
-            variant="top"
-            src="https://base.imgix.net/files/base/ebm/industryweek/image/2020/04/problem_solving.5e962254a8281.png?auto=format&fit=crop&h=432&w=768"
-          />
-          <Card.Body>
-            <Card.Text>
-              This is a wider card with supporting text below as a natural
-              lead-in to additional content. This content is a little bit
-              longer.
-            </Card.Text>
-          </Card.Body>
+          <Card.Link href={ROUTES.CHALLENGE}>
+            <Card.Img
+              variant="top"
+              src="https://base.imgix.net/files/base/ebm/industryweek/image/2020/04/problem_solving.5e962254a8281.png?auto=format&fit=crop&h=432&w=768"
+            />
+            <Card.Body>
+              <Card.Text>
+                This is a wider card with supporting text below as a natural
+                lead-in to additional content. This content is a little bit
+                longer.
+              </Card.Text>
+            </Card.Body>
+          </Card.Link>
         </Card>
         <Card>
-          <Card.Img
-            variant="top"
-            src="https://base.imgix.net/files/base/ebm/industryweek/image/2020/04/problem_solving.5e962254a8281.png?auto=format&fit=crop&h=432&w=768"
-          />
-          <Card.Body>
-            <Card.Text>
-              This is a wider card with supporting text below as a natural
-              lead-in to additional content. This content is a little bit
-              longer.
-            </Card.Text>
-          </Card.Body>
+          <Card.Link href={ROUTES.CHALLENGE}>
+            <Card.Img
+              variant="top"
+              src="https://base.imgix.net/files/base/ebm/industryweek/image/2020/04/problem_solving.5e962254a8281.png?auto=format&fit=crop&h=432&w=768"
+            />
+            <Card.Body>
+              <Card.Text>
+                This is a wider card with supporting text below as a natural
+                lead-in to additional content. This content is a little bit
+                longer.
+              </Card.Text>
+            </Card.Body>
+          </Card.Link>
         </Card>
       </CardDeck>
       <div
@@ -93,12 +99,6 @@ const HomePage = () => (
       </div>
     </Container>
   </Container>
-  // <div>
-  //   <h1>Home Page</h1>
-  //   <p>The Home Page is accessible by every signed in user.</p>
-
-  //   <Messages />
-  // </div>
 );
 
 const condition = (authUser) => !!authUser;
