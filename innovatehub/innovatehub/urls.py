@@ -16,6 +16,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from hub.views import ChallengeEndpoints as CE
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('likechallenge/', CE.likeChallenge, name='like'),
+    path('dislikechallenge/', CE.dislikeChallenge, name='dislike'),
+    path('categories/', CE.getAllCategories, name='categories')
 ]
