@@ -1,105 +1,144 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+
 import { compose } from "recompose";
 import * as ROUTES from "../../constants/routes";
 import { withAuthorization, withEmailVerification } from "../Session";
 
 import { Container, CardDeck, Card, Button } from "react-bootstrap";
-const HomePage = () => (
-  <Container>
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faThumbsUp, faThumbsDown } from '@fortawesome/free-solid-svg-icons'
+
+const btnStyle = {
+  marginTop: "10px",
+  marginBottom: "10px",
+  display: "flex",
+  justifyContent: "center",
+}
+
+const HomePage = () => {
+  const [error, setError] = useState(null);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [challenges, setItems] = useState([]);
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    fetch("/topchallenges/", {method: 'POST'})
+      .then(res => res.json())
+      .then(
+        (result) => {
+          setIsLoaded(true);
+          setItems(result.challenges);
+        },
+        (error) => {
+          setIsLoaded(true);
+          setError(error);
+        }
+      )
+    
+    fetch("/categories/", {method: 'POST'})
+      .then(res => res.json())
+      .then(
+        (result) => {
+          setIsLoaded(true);
+          setCategories(result.categories);
+        },
+        (error) => {
+          setIsLoaded(true);
+          setError(error);
+        }
+      )
+
+  }, [])
+
+  let challengeList = [];
+
+  if (error)
+    challengeList = <div>Error: {error.message}</div>;
+    
+  else if (!isLoaded)
+    challengeList = <div>Loading...</div>;
+  
+  else {
+    challenges.forEach((challenge, index) => {
+      challengeList.push(
+        <Card id={"challenge_"+challenge.id}>
+          <Card.Link href={ROUTES.CHALLENGE+"/"+challenge.id}>
+            <Card.Img variant="top"
+              src={"/media/"+challenge.image}
+              //src = "https://source.unsplash.com/random/198x111"
+            />
+            <Card.Body>
+              <Card.Text>
+                {challenge.description}
+              </Card.Text>
+              <Button style={{borderRadius: 100, marginRight: '10px'}} variant="danger" type="submit">
+                <div>
+                  <FontAwesomeIcon style={{marginRight: '10px'}} icon={faThumbsUp} inverse />
+                  {challenge.likes}
+                </div>
+              </Button>
+              <Button style={{borderRadius: 100}} variant="danger" type="submit">
+                <div>
+                  <FontAwesomeIcon style={{marginRight: '10px'}} icon={faThumbsDown} inverse />
+                  {challenge.dislikes}
+                </div>
+              </Button>
+            </Card.Body>
+          </Card.Link>
+        </Card>
+      );
+    })
+  }
+
+  let categoriesList = [];
+
+  if (error)
+    categoriesList = <div>Error: {error.message}</div>;
+    
+  else if (!isLoaded)
+    categoriesList = <div>Loading...</div>;
+  
+  else {
+    categories.forEach((category, index) => {
+      categoriesList.push(
+        <Card id={"category_"+category.category}>
+          <Card.Link href={ROUTES.CHALLENGE+"/challenges/"+category.category}>
+            <Card.Body>
+              <Card.Text style={btnStyle}>
+                {category.category}
+              </Card.Text>
+            </Card.Body>
+          </Card.Link>
+        </Card>
+      );
+    })
+  }
+
+  return(
     <Container>
-      <h2 style={{ textAlign: "center" }}>Popular Challenges</h2>
-      <hr />
-      <CardDeck>
-        <Card>
-          <Card.Link href={ROUTES.CHALLENGE}>
-            <Card.Img
-              variant="top"
-              src="https://base.imgix.net/files/base/ebm/industryweek/image/2020/04/problem_solving.5e962254a8281.png?auto=format&fit=crop&h=432&w=768"
-            />
-            <Card.Body>
-              <Card.Text>
-                This is a wider card with supporting text below as a natural
-                lead-in to additional content. This content is a little bit
-                longer.
-              </Card.Text>
-            </Card.Body>
-          </Card.Link>
-        </Card>
-        <Card>
-          <Card.Link href={ROUTES.CHALLENGE}>
-            <Card.Img
-              variant="top"
-              src="https://base.imgix.net/files/base/ebm/industryweek/image/2020/04/problem_solving.5e962254a8281.png?auto=format&fit=crop&h=432&w=768"
-            />
-            <Card.Body>
-              <Card.Text>
-                This is a wider card with supporting text below as a natural
-                lead-in to additional content. This content is a little bit
-                longer.
-              </Card.Text>
-            </Card.Body>
-          </Card.Link>
-        </Card>
-        <Card>
-          <Card.Link href={ROUTES.CHALLENGE}>
-            <Card.Img
-              variant="top"
-              src="https://base.imgix.net/files/base/ebm/industryweek/image/2020/04/problem_solving.5e962254a8281.png?auto=format&fit=crop&h=432&w=768"
-            />
-            <Card.Body>
-              <Card.Text>
-                This is a wider card with supporting text below as a natural
-                lead-in to additional content. This content is a little bit
-                longer.
-              </Card.Text>
-            </Card.Body>
-          </Card.Link>
-        </Card>
-      </CardDeck>
-      <div
-        style={{
-          marginTop: "10px",
-          marginBottom: "10px",
-          display: "flex",
-          justifyContent: "center",
-        }}
-      >
-        <Button variant="outline-primary">See more</Button>
-      </div>
+      <Container style={{margin: '20px'}}>
+        <h2 style={{ textAlign: "center", margin: '20px' }}>Popular Challenges</h2>
+        <CardDeck>
+          {challengeList}
+        </CardDeck>
+        <div style={btnStyle}>
+          <Button variant="primary">See more</Button>
+        </div>
+      </Container>
+
+      <Container style={{margin: '20px'}}>
+        <h2 style={{ textAlign: "center", margin: '20px' }}>Browers By Category</h2>
+        <CardDeck>
+          {categoriesList}
+        </CardDeck>
+        <div style={btnStyle}>
+          <Button variant="primary">See more</Button>
+        </div>
+      </Container>
     </Container>
-    <Container>
-      <h2 style={{ textAlign: "center" }}>Browers By Category</h2>
-      <hr />
-      <CardDeck>
-        <Card>
-          <Card.Body>
-            <Card.Text style={{ textAlign: "center" }}>HealthCare</Card.Text>
-          </Card.Body>
-        </Card>
-        <Card>
-          <Card.Body>
-            <Card.Text style={{ textAlign: "center" }}>Environment</Card.Text>
-          </Card.Body>
-        </Card>
-        <Card>
-          <Card.Body>
-            <Card.Text style={{ textAlign: "center" }}>Personal</Card.Text>
-          </Card.Body>
-        </Card>
-        <Card>
-          <Card.Body>
-            <Card.Text style={{ textAlign: "center" }}>Education</Card.Text>
-          </Card.Body>
-        </Card>
-      </CardDeck>
-      <div
-        style={{ marginTop: "10px", display: "flex", justifyContent: "center" }}
-      >
-        <Button variant="outline-primary">See more</Button>
-      </div>
-    </Container>
-  </Container>
-);
+  )
+}
 
 const condition = (authUser) => !!authUser;
 
@@ -107,3 +146,5 @@ export default compose(
   withEmailVerification,
   withAuthorization(condition)
 )(HomePage);
+
+//export default HomePage;
