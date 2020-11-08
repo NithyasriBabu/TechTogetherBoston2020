@@ -32,3 +32,8 @@ class ChallengeEndpoints:
         categories = list(ChallengeCategory.objects.values('category').distinct())
         print(categories)
         return JsonResponse({'categories': categories})
+
+    @require_http_methods(["POST"])
+    def getTopChallenges(self):
+        top = list(Challenge.objects.order_by('-likes').values()[:3])
+        return JsonResponse({'challenges': top})

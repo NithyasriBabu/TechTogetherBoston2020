@@ -30,8 +30,10 @@ class UserProfile(models.Model):
     language = models.CharField(max_length=50, null=True)
 
 class Challenge(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     description = models.TextField(max_length=500)
+
+    image = models.ImageField(upload_to='challengeimages', null=True, blank=True)
 
     likes = models.IntegerField(default=0)
     dislikes = models.IntegerField(default=0)
