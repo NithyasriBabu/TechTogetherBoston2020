@@ -5,6 +5,9 @@ from django.http import JsonResponse
 
 from django.views.decorators.http import require_http_methods
 
+from rest_framework import viewsets
+from hub.serializers import ChallengeSerializer
+
 class ChallengeEndpoints:
 
     @require_http_methods(["POST"])
@@ -44,3 +47,23 @@ class ChallengeEndpoints:
     def getTopChallenges(self):
         top = list(Challenge.objects.order_by('-likes').values()[:3])
         return JsonResponse({'challenges': top})
+
+class ChallengeViewSet(viewsets.ModelViewSet):
+    queryset = Challenge.objects.all()
+    serializer_class = ChallengeSerializer
+
+    def post(self, request, *args, **kwargs):
+        chal = Challenge.objects.create(
+            title=request.data['title'],
+            description=request.data['description'],
+            image=request.data['image']
+        )
+
+        categories = request.data['categories']
+        for category in categories:
+            ChallengeCategory.create(
+                challenge__id=chal.id,
+                category=category
+            )
+
+        return JsonResponse({},status=201)

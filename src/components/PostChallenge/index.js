@@ -3,10 +3,8 @@ import { compose } from "recompose";
 
 import { withAuthorization, withEmailVerification } from "../Session";
 
-import { Container, Card, Button, Form, Row } from "react-bootstrap";
+import { Container, Button, Form, Row } from "react-bootstrap";
 import Select from 'react-select';
-
-import Upload from '../Upload';
 
 const PostChallenge = () => {
   const [error, setError] = useState(null);
@@ -20,9 +18,12 @@ const PostChallenge = () => {
 
   const categoryChange = (evt) => {
     let cat = [];
-    evt.forEach((category_val, index) => {
-      cat.push(category_val.value)
-    });
+    if(evt){
+      evt.forEach((category_val, index) => {
+        cat.push(category_val.value)
+      });
+    }
+
     setCategory(cat);
   }
 
@@ -34,7 +35,7 @@ const PostChallenge = () => {
     uploadData.append('description', description);
     uploadData.append('categories', category);
 
-    fetch("/saveChallenge/", 
+    fetch("/challenges/", 
       {method: 'POST', body: uploadData}
     ).then(res => alert("Added Challenge Successfully"))
     .catch(error => alert(error));

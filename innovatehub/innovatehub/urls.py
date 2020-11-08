@@ -14,9 +14,18 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+
+from django.conf.urls.static import static
+from django.conf import settings
 
 from hub.views import ChallengeEndpoints as CE
+
+from rest_framework import routers
+import hub.views as views
+
+router = routers.DefaultRouter()
+router.register(r'challenges', views.ChallengeViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -25,9 +34,8 @@ urlpatterns = [
     path('dislikechallenge/', CE.dislikeChallenge, name='dislike'),
     path('categories/', CE.getAllCategories, name='categories'),
     path('topchallenges/', CE.getTopChallenges, name='topchallenges'),
+    path('', include(router.urls)),
+    path('api/', include('rest_framework.urls', namespace='rest_framework'))
 ]
-
-from django.conf.urls.static import static
-from django.conf import settings
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
