@@ -20,10 +20,11 @@ from hub.views import ChallengeEndpoints as CE
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('homepageinfo/', CE.getHomePageInfo, name='home'),
     path('likechallenge/', CE.likeChallenge, name='like'),
     path('dislikechallenge/', CE.dislikeChallenge, name='dislike'),
     path('categories/', CE.getAllCategories, name='categories'),
-    path('topchallenges/', CE.getTopChallenges, name='topchallenges')
+    path('topchallenges/', CE.getTopChallenges, name='topchallenges'),
 ]
 
 from django.conf.urls.static import static

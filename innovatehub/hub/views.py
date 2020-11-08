@@ -8,6 +8,14 @@ from django.views.decorators.http import require_http_methods
 class ChallengeEndpoints:
 
     @require_http_methods(["POST"])
+    def getHomePageInfo(self):
+        allCategories = list(ChallengeCategory.objects.values('category').distinct())
+        topChallenges = list(Challenge.objects.order_by('-likes').values()[:3])
+
+        return JsonResponse({'challenges': topChallenges, 'categories': allCategories})
+
+
+    @require_http_methods(["POST"])
     def likeChallenge(self, request):
         challengeID = request.POST.get('id')
 
@@ -30,7 +38,6 @@ class ChallengeEndpoints:
     @require_http_methods(["POST"])
     def getAllCategories(self):
         categories = list(ChallengeCategory.objects.values('category').distinct())
-        print(categories)
         return JsonResponse({'categories': categories})
 
     @require_http_methods(["POST"])

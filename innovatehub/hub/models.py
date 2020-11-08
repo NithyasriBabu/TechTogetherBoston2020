@@ -31,6 +31,8 @@ class UserProfile(models.Model):
 
 class Challenge(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    title = models.CharField(max_length=100, null=True, blank=True)
+    
     description = models.TextField(max_length=500)
 
     image = models.ImageField(upload_to='challengeimages', null=True, blank=True)
