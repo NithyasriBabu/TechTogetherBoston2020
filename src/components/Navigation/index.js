@@ -30,22 +30,16 @@ const Navigation = () => (
 );
 
 const NavigationAuth = ({ authUser }) => (
-  <Navbar bg="light" expand="lg">
+  <Navbar bg="light" expand="lg" >
     <Navbar.Brand href={ROUTES.HOME} style={{display:'flex', alignItems:'center'}}>
-      <img
-        src="logo.svg"
-        width="60"
-        height="60"
-        className="d-inline-block align-top"
-        alt="Logo"
-      />
+      <img src="/logo.svg" width="60" height="60" className="d-inline-block align-top" alt="Logo" />
       InnovateHub
     </Navbar.Brand>
     <Navbar.Toggle aria-controls="basic-navbar-nav" />
     <Navbar.Collapse id="basic-navbar-nav">
       <Nav className="mx-auto">
         <Nav.Link href={ROUTES.POST_CHALLENGE}>Post New Challenge</Nav.Link>
-        <Nav.Link href={ROUTES.CHALLENGE}>All Challenges</Nav.Link>
+        <Nav.Link href={ROUTES.CHALLENGES}>All Challenges</Nav.Link>
         <Nav.Link href={ROUTES.PROJECTS}>All Projects</Nav.Link>
       </Nav>
       <NavDropdown title="Account" id="basic-nav-dropdown">

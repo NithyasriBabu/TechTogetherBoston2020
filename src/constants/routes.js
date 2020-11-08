@@ -9,4 +9,5 @@ export const ADMIN_DETAILS = "/admin/:id";
 export const POST_CHALLENGE = "/post-challenge";
 export const PROJECTS = "/projects";
 export const PROJECT = "/project";
+export const CHALLENGES = "/challenges";
 export const CHALLENGE = "/challenge";

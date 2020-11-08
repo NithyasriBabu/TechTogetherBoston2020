@@ -23,24 +23,12 @@ const HomePage = () => {
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
-    fetch("/topchallenges/", {method: 'POST'})
+    fetch("/homepageinfo/", {method: 'POST'})
       .then(res => res.json())
       .then(
         (result) => {
           setIsLoaded(true);
           setItems(result.challenges);
-        },
-        (error) => {
-          setIsLoaded(true);
-          setError(error);
-        }
-      )
-    
-    fetch("/categories/", {method: 'POST'})
-      .then(res => res.json())
-      .then(
-        (result) => {
-          setIsLoaded(true);
           setCategories(result.categories);
         },
         (error) => {
@@ -52,6 +40,7 @@ const HomePage = () => {
   }, [])
 
   let challengeList = [];
+  let categoriesList = [];
 
   if (error)
     challengeList = <div>Error: {error.message}</div>;
@@ -64,8 +53,7 @@ const HomePage = () => {
       challengeList.push(
         <Card id={"challenge_"+challenge.id}>
           <Card.Link href={ROUTES.CHALLENGE+"/"+challenge.id}>
-            <Card.Img variant="top"
-              src={"/media/"+challenge.image}
+            <Card.Img variant="top" src={"/media/"+challenge.image}
               //src = "https://source.unsplash.com/random/198x111"
             />
             <Card.Body>
@@ -89,17 +77,7 @@ const HomePage = () => {
         </Card>
       );
     })
-  }
 
-  let categoriesList = [];
-
-  if (error)
-    categoriesList = <div>Error: {error.message}</div>;
-    
-  else if (!isLoaded)
-    categoriesList = <div>Loading...</div>;
-  
-  else {
     categories.forEach((category, index) => {
       categoriesList.push(
         <Card id={"category_"+category.category}>
@@ -128,7 +106,7 @@ const HomePage = () => {
       </Container>
 
       <Container style={{margin: '20px'}}>
-        <h2 style={{ textAlign: "center", margin: '20px' }}>Browers By Category</h2>
+        <h2 style={{ textAlign: "center", margin: '20px' }}>Browe By Category</h2>
         <CardDeck>
           {categoriesList}
         </CardDeck>
